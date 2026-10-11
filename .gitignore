@@ -218,3 +218,12 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# Blender backup files
+*.blend1
+*.blend2
+
+# UPBGE export output (keep folder scaffolded)
+!build/
+build/*
+!build/.gitkeep
