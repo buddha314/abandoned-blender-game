@@ -1,0 +1,22 @@
+diff --git a/source/gameengine/CMakeLists.txt b/source/gameengine/CMakeLists.txt
+index ba7547ca724..2e05469ad63 100644
+--- a/source/gameengine/CMakeLists.txt
++++ b/source/gameengine/CMakeLists.txt
+@@ -27,0 +28,6 @@ remove_extra_strict_flags()
++# Bullet types appear in game engine headers used by several subdirectories.
++# Compile all of them with the same scalar precision as Physics/Bullet.
++if(WITH_BULLET)
++  add_definitions(-DBT_USE_DOUBLE_PRECISION)
++endif()
++
+diff --git a/source/gameengine/Physics/Bullet/CMakeLists.txt b/source/gameengine/Physics/Bullet/CMakeLists.txt
+index 85d4c5772fc..387ed6591a0 100644
+--- a/source/gameengine/Physics/Bullet/CMakeLists.txt
++++ b/source/gameengine/Physics/Bullet/CMakeLists.txt
+@@ -29,6 +28,0 @@ remove_strict_flags()
+-# UPBGE - to recover single precision comment this definition, intern/rigidbody/CMakeLists.txt one
+-# and source/gameengine/Physics/Bullet/CMakeLists.txt one.
+-# Double precision is slower than float one but it will increase the precision in
+-# open worlds games bigger than 10Km.
+-add_definitions(-DBT_USE_DOUBLE_PRECISION)
+-

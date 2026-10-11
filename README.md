@@ -69,7 +69,7 @@ After replacing Max in `Intro.blend`:
    node targets the imported body.
 4. Reassign **IntroRules → Get World Position → Object** to the new `MaxBody`.
 5. Force Compile, save the level with a 3D Viewport in the active workspace,
-   then check visibility, A/D movement, and falling below Z = −5 to reset.
+   then check visibility, A/D movement, and falling below Z = −5 to respawn.
 
 The character source now marks `MaxCollection`, containing `Max` and `MaxBody`,
 as the asset. Use this collection when importing the complete character.
@@ -141,3 +141,26 @@ Reopen the repaired file from disk if an older copy is still open; saving that
 older copy could restore the problematic layout. This is a project workaround;
 UPBGE still needs to handle a missing viewport safely. Diagnosis and validation
 were performed with Codex.
+
+### Bullet physics scene crashes on shutdown or game switch
+
+In the local UPBGE 5.4 alpha build at `5aa7b7693e69`, any scene using Bullet
+physics crashed when it exited or switched to another `.blend`. This affected
+Intro's old fall reset and its **Escape → ReturnToLobby** game actuator. The
+crash occurs in `CcdPhysicsEnvironment::~CcdPhysicsEnvironment()`: a game engine
+source file compiled with single precision overwrites a Bullet member laid
+out for double precision. This is an UPBGE build issue, not a Logic Nodes error.
+
+The level now moves `MaxBody` back to its spawn position when Z drops below −5,
+so falling no longer reloads the game. Returning to the lobby still requires
+the engine fix. For an UPBGE source checkout matching this build, apply the
+project patch and rebuild both the player and editor:
+
+```sh
+patch -p1 -d /path/to/upbge -i patches/upbge-bullet-precision.patch
+cmake --build /path/to/build_upbge --target blenderplayer -j 4
+cmake --build /path/to/build_upbge --target blender -j 4
+```
+
+Restart the editor after rebuilding. A forced fall returned Max to spawn, and
+an Intro → lobby transition exited cleanly with the rebuilt player.
