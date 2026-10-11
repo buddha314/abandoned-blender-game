@@ -24,6 +24,19 @@ UPBGE project scaffold for a multi-`.blend` workflow.
 
 ## SETUP
 
+### Logic Nodes runtime
+
+Max's movement and Intro's reset rules use Logic Nodes. Their generated Python
+components require the `uplogic` package in **UPBGE's bundled Python**. A copy
+installed in your system Python or user site packages is not enough for the
+standalone player. If Max does not move, check the player console for
+`ModuleNotFoundError: No module named 'uplogic'`.
+
+In UPBGE, use **Logic Nodes → Install or Update Uplogic Module** with Online
+Access enabled, then restart UPBGE and reopen `blend/levels/Intro.blend`.
+Confirm the console has no `KX_PythonComponent[MaxMovement]` startup error.
+The current project was checked with Uplogic 5.1.1 and UPBGE 5.4 alpha.
+
 ### Asset library import choices
 
 Keep the character source in `blend/characters/Max.blend`. Configure an asset

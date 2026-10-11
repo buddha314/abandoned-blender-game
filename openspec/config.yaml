@@ -1,0 +1,8 @@
+schema: spec-driven
+
+context: |
+  This is a UPBGE game project with reusable characters in blend/characters/
+  and levels in blend/levels/. Max's movement and Intro's reset rules use
+  Logic Nodes, whose generated Python components require Uplogic in UPBGE's
+  bundled Python. Keep shared character behavior in Max.blend and level-specific
+  placement and rules in Intro.blend.
