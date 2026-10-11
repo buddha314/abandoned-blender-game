@@ -8,7 +8,6 @@ __pycache__/
 
 # Distribution / packaging
 .Python
-build/
 develop-eggs/
 dist/
 downloads/
@@ -224,6 +223,5 @@ __marimo__/
 *.blend2
 
 # UPBGE export output (keep folder scaffolded)
-!build/
 build/*
 !build/.gitkeep
